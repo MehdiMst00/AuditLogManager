@@ -5,9 +5,11 @@ VisualStudioVersion = 17.10.34916.146
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AuditLogManager", "AuditLogManager\AuditLogManager.csproj", "{36A6CFC7-6C0B-4EBF-A450-9ECEEA609834}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuditLogManager.AppHost", "AuditLogManager.AppHost\AuditLogManager.AppHost.csproj", "{8BFFD5BE-4428-48CA-875F-936A4C0D83A1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AuditLogManager.AppHost", "AuditLogManager.AppHost\AuditLogManager.AppHost.csproj", "{8BFFD5BE-4428-48CA-875F-936A4C0D83A1}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AuditLogManager.ServiceDefaults", "AuditLogManager.ServiceDefaults\AuditLogManager.ServiceDefaults.csproj", "{49766FF8-D8C6-454B-946A-35770418BCA6}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AuditLogManager.Sample.AspNetCore", "AuditLogManager.Sample.AspNetCore\AuditLogManager.Sample.AspNetCore.csproj", "{7DF6AA31-0919-4DF6-9EF1-FE30AF5C892F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{49766FF8-D8C6-454B-946A-35770418BCA6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{49766FF8-D8C6-454B-946A-35770418BCA6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{49766FF8-D8C6-454B-946A-35770418BCA6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7DF6AA31-0919-4DF6-9EF1-FE30AF5C892F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7DF6AA31-0919-4DF6-9EF1-FE30AF5C892F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7DF6AA31-0919-4DF6-9EF1-FE30AF5C892F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7DF6AA31-0919-4DF6-9EF1-FE30AF5C892F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
