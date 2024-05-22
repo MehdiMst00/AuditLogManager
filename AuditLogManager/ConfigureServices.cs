@@ -10,6 +10,7 @@ public static class ConfigureServices
         services.AddEndpointsApiExplorer();
         services.AddSwaggerGen();
 
+        services.AddGuidenerator();
         services.AddSingleton<AuditLogQueue>();
         services.AddHostedService<AuditLogProcessor>();
 

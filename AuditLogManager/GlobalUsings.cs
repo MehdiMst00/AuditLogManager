@@ -1,5 +1,6 @@
 ﻿global using AuditLogManager;
 global using AuditLogManager.Controllers.Base;
+global using AuditLogManager.Guids;
 global using AuditLogManager.Infrastructure;
 global using AuditLogManager.Infrastructure.Data;
 global using AuditLogManager.Models;

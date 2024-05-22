@@ -1,6 +1,7 @@
 namespace AuditLogManager.Controllers;
 
-public class AuditLogController(AuditLogQueue auditLogQueue) : BaseApiController
+public class AuditLogController(AuditLogQueue auditLogQueue, 
+    IGuidGenerator guidGenerator) : BaseApiController
 {
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
@@ -12,7 +13,7 @@ public class AuditLogController(AuditLogQueue auditLogQueue) : BaseApiController
             return BadRequest();
         }
 
-        auditLogQueue.Enqueue(new AuditLog());
+        auditLogQueue.Enqueue(dto.ToAudit(guidGenerator));
 
         return NoContent();
     }
