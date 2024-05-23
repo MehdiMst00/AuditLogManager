@@ -9,7 +9,7 @@ builder.AddServiceDefaults();
 // Add services to the container.
 builder.Services.AddControllers(options =>
 {
-    options.Filters.Add<AuditLogFilterAttribute>(100); // Add globally or Use in controller class or action method [ServiceFilter(typeof(AuditLogFilterAttribute))]
+    options.Filters.Add<AuditLogFilterAttribute>(); // Add globally or Use in controller class or action method [ServiceFilter(typeof(AuditLogFilterAttribute))]
 });
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
