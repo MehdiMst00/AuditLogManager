@@ -4,9 +4,17 @@ using Microsoft.EntityFrameworkCore;
 
 namespace AuditLogManager.Sample.AspNetCore.Data;
 
-public class AppDbContext(DbContextOptions<AppDbContext> options, 
-    IAuditingManager auditingManager) : DbContext(options)
+public class AppDbContext : DbContext
 {
+    private readonly IAuditingManager _auditingManager;
+
+    public AppDbContext(DbContextOptions<AppDbContext> options,
+        IAuditingManager auditingManager) : base(options)
+    {
+        _auditingManager = auditingManager;
+        ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.TrackAll;
+    }
+
     public DbSet<Todo> Todo => Set<Todo>();
     public DbSet<Contributor> Contributors => Set<Contributor>();
 
@@ -23,21 +31,29 @@ public class AppDbContext(DbContextOptions<AppDbContext> options,
 
     public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
     {
-        var auditLog = auditingManager.Current;
-        List<AuditLogChange>? entityChangeList = null;
+        var auditLog = _auditingManager.Current;
+        List<AuditLogChangeEntityEntry>? entityChangeList = null;
         if (auditLog != null)
         {
-            entityChangeList = AuditLogChangesHelper.GetAuditLogChanges(ChangeTracker.Entries().ToList());
+            entityChangeList = AuditLogChangesHelper.CreateAuditLogChangeEntry(ChangeTracker.Entries().ToList());
         }
 
-        int result = await base.SaveChangesAsync(cancellationToken);
-
-        if (entityChangeList != null)
+        try
         {
-            auditLog!.AuditLogChanges.AddRange(entityChangeList);
-        }
+            int result = await base.SaveChangesAsync(cancellationToken);
 
-        return result;
+            if (entityChangeList != null)
+            {
+                AuditLogChangesHelper.UpdateAuditLogChangeEntry(entityChangeList);
+                auditLog!.AuditLogChanges.AddRange(entityChangeList.Select(e => e.ToEntity()).ToList());
+            }
+
+            return result;
+        }
+        finally
+        {
+            ChangeTracker.AutoDetectChangesEnabled = true;
+        }
     }
 
     public override int SaveChanges()

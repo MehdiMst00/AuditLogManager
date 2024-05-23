@@ -46,9 +46,9 @@ public sealed class AuditLogFilterAttribute(ILogger<AuditLogFilterAttribute> log
             // Execute action
             var actionExecutedContext = await next();
 
-            if (actionExecutedContext.Exception != null && !actionExecutedContext.ExceptionHandled)
+            if (actionExecutedContext.Exception != null)
             {
-                auditLog.Exceptions = actionExecutedContext.Exception?.ToString();
+                auditLog.Exceptions = actionExecutedContext.Exception.ToString();
             }
 
             auditLog.HttpStatusCode = GetStatusCode(actionExecutedContext);
