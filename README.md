@@ -51,10 +51,10 @@ public class TodoesController : ControllerBase
 ```
 - Use `DisableAuditLogFilter` for disable auditing 
 ```c#
-    // GET: api/Todoes/5
-    [HttpGet("{id}")]
-    [DisableAuditLogFilter]
-    public async Task<ActionResult<Todo>> GetTodo(int id)
+// GET: api/Todoes/5
+[HttpGet("{id}")]
+[DisableAuditLogFilter]
+public async Task<ActionResult<Todo>> GetTodo(int id)
 ```
 
 ## AuditLogManager.AppHost (Aspire)
