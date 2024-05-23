@@ -19,6 +19,7 @@ public record CreateAuditLogDto
     public string? Exceptions { get; set; }
     public int? HttpStatusCode { get; set; }
     public string? Arguments { get; set; }
+    public int ExecutionDuration { get; set; }
     public List<CreateAuditLogChangeDto> AuditLogChanges { get; set; }
 
     public AuditLog ToAudit(IGuidGenerator guidGenerator)
@@ -39,6 +40,7 @@ public record CreateAuditLogDto
             IpAddress = IpAddress,
             Header = Header,
             Arguments = Arguments,
+            ExecutionDuration = ExecutionDuration,
             AuditLogChanges = AuditLogChanges.Select(a => a.ToAudit(guidGenerator)).ToList()
         };
     }

@@ -1,11 +1,20 @@
 ﻿namespace AuditLogManager.Models;
 
-public record AuditLogChange
+public class AuditLogChange
 {
     #region Relations
 
     public Guid AuditLogId { get; set; }
     public AuditLog? AuditLog { get; set; }
+
+    #endregion
+
+    #region Ctor
+
+    public AuditLogChange()
+    {
+        
+    }
 
     #endregion
 
@@ -17,7 +26,7 @@ public record AuditLogChange
     public string? OldValues { get; set; }
     public string? NewValues { get; set; }
     public string? AffectedColumns { get; set; }
-    public string? PrimaryKey { get; set; }
+    public string? EntityId { get; set; }
 
     #endregion
 }

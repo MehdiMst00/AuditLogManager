@@ -1,7 +1,7 @@
 var builder = DistributedApplication.CreateBuilder(args);
 
-builder.AddProject<Projects.AuditLogManager>("auditlogmanager");
+builder.AddProject<Projects.AuditLogManager>("audit-log-manager");
 
-builder.AddProject<Projects.AuditLogManager_Sample_AspNetCore>("auditlogmanager-sample-aspnetcore");
+builder.AddProject<Projects.AuditLogManager_Sample_AspNetCore>("aspnetcore-audit-log-manager-sample");
 
 builder.Build().Run();

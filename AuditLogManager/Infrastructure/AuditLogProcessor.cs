@@ -2,8 +2,8 @@
 
 public class AuditLogProcessor(ILogger<AuditLogProcessor> logger,
     IConfiguration configuration,
-    AuditLogQueue auditLogQueue,
-    AppDbContext dbContext) : BackgroundService
+    IServiceProvider serviceProvider,
+    AuditLogQueue auditLogQueue) : BackgroundService
 {
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
@@ -25,6 +25,10 @@ public class AuditLogProcessor(ILogger<AuditLogProcessor> logger,
 
                 try
                 {
+                    using var scope = serviceProvider.CreateScope();
+                    var provider = scope.ServiceProvider;
+                    using var dbContext = provider.GetRequiredService<AppDbContext>();
+
                     await dbContext.BulkInsertAsync(auditLogs, bulkConfig =>
                     {
                         bulkConfig.IncludeGraph = true;
@@ -52,6 +56,10 @@ public class AuditLogProcessor(ILogger<AuditLogProcessor> logger,
 
             try
             {
+                using var scope = serviceProvider.CreateScope();
+                var provider = scope.ServiceProvider;
+                using var dbContext = provider.GetRequiredService<AppDbContext>();
+
                 await dbContext.BulkInsertAsync(auditLogs, bulkConfig =>
                 {
                     bulkConfig.IncludeGraph = true;

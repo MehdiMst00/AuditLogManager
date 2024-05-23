@@ -6,10 +6,10 @@ public record CreateAuditLogChangeDto
 {
     public string? TableName { get; set; }
     public AuditLogType Type { get; set; }
-    public string? KeyValues { get; }
-    public string? OldValues { get; }
-    public string? NewValues { get; }
-    public List<string> ChangedColumns { get; } = [];
+    public string? EntityId { get; set; } 
+    public string? OldValues { get; set; } 
+    public string? NewValues { get; set; }
+    public List<string> ChangedColumns { get; set; } = [];
 
     public AuditLogChange ToAudit(IGuidGenerator guidGenerator)
     {
@@ -17,7 +17,7 @@ public record CreateAuditLogChangeDto
         {
             Id = guidGenerator.Create(),
             TableName = TableName,
-            PrimaryKey = KeyValues,
+            EntityId = EntityId,
             OldValues = OldValues,
             NewValues = NewValues,
             AffectedColumns = ChangedColumns.Count == 0 ? null : JsonConvert.SerializeObject(ChangedColumns),
