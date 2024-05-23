@@ -15,24 +15,29 @@
 - `AuditLogFilterAttribute` for create log object and POST to `AuditLogManager` project (You can combine AuditLogManager and AuditLogManager.Sample.AspNetCore project for removing remote call)
 - SaveChangesAsync override in `AppDbContext` for getting entity change values:
 ```c#
-    public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
+var auditLog = _auditingManager.Current;
+List<AuditLogChangeEntityEntry>? entityChangeList = null;
+if (auditLog != null)
+{
+    entityChangeList = AuditLogChangesHelper.CreateAuditLogChangeEntry(ChangeTracker.Entries().ToList());
+}
+
+try
+{
+    int result = await base.SaveChangesAsync(cancellationToken);
+
+    if (entityChangeList != null)
     {
-        var auditLog = auditingManager.Current;
-        List<AuditLogChange>? entityChangeList = null;
-        if (auditLog != null)
-        {
-            entityChangeList = AuditLogChangesHelper.GetAuditLogChanges(ChangeTracker.Entries().ToList());
-        }
-
-        int result = await base.SaveChangesAsync(cancellationToken);
-
-        if (entityChangeList != null)
-        {
-            auditLog!.AuditLogChanges.AddRange(entityChangeList);
-        }
-
-        return result;
+        AuditLogChangesHelper.UpdateAuditLogChangeEntry(entityChangeList);
+        auditLog!.AuditLogChanges.AddRange(entityChangeList.Select(e => e.ToEntity()).ToList());
     }
+
+    return result;
+}
+finally
+{
+    ChangeTracker.AutoDetectChangesEnabled = true;
+}
 ```
 - Add `AuditLogFilterAttribute` globally or use per each controller class or action method:
 ```c#
