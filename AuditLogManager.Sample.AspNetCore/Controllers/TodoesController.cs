@@ -43,7 +43,7 @@ public class TodoesController : ControllerBase
     // PUT: api/Todoes/5
     // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
     [HttpPut("{id}")]
-    public async Task<IActionResult> PutTodo(int id, Todo todo)
+    public async Task<IActionResult> PutTodo(int id, Todo todo) // TODO: Never get entity from body
     {
         if (id != todo.Id)
         {
