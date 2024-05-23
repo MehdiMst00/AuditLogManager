@@ -1,5 +1,15 @@
 # Audit Log Manager
 
+## AuditLog - AuditLogChange Entity
+<p>
+  <a href="https://raw.githubusercontent.com/MehdiMst00/AuditLogManager/main/screenshots/image-1.png">
+    <img src="https://raw.githubusercontent.com/MehdiMst00/AuditLogManager/main/screenshots/image-1.png" />
+  </a>
+  <a href="https://raw.githubusercontent.com/MehdiMst00/AuditLogManager/main/screenshots/image-2.png">
+    <img src="https://raw.githubusercontent.com/MehdiMst00/AuditLogManager/main/screenshots/image-2.png" />
+  </a>
+</p>
+
 ## AuditLogManager Project
 - Background worker to commit logs to database (SQL Server) using `AuditLogQueue`
 - AuditLogController to enqueue log with HTTP POST method (You can also add gRPC)
